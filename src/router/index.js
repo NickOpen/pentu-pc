@@ -5,8 +5,15 @@ import UserLayout from '@components/layout/UserLayout';
 import MainLayout from '@components/layout/MainLayout';
 
 import LoginPage from '@pages/Login';
-import DashboardPage from '@pages/Dashboard';
+import CoatingsPage from '@pages/Coatings';
+import CoatingMethodsPage from '@pages/CoatingMethods.vue'
+import PerformanceTestPage from '@pages/PerformanceTest.vue';
+import DeviceMaterialsPage from '@pages/DeviceMaterials.vue';
+
 import UsersPage from '@pages/Users';
+import CoatingDevicesPage from '@pages/settings/CoatingDevices';
+import CoatingGasTypesPage from '@pages/settings/CoatingGasTypes'
+
 
 Vue.use(VueRouter);
 
@@ -25,11 +32,20 @@ const routes = [
 		path: '/main',
 		name: "Main",
 		component: MainLayout,
-		redirect: "/main/dashboard",
+		redirect: "/main/coatings",
 		children: [
 			{
-				path: "dashboard",
-				component: DashboardPage
+				path: "coatings",
+				component: CoatingsPage
+			},{
+				path: 'coating_methods',
+				component: CoatingMethodsPage
+			},{
+				path: 'performance_test',
+				component: PerformanceTestPage
+			},{
+				path: 'device_materials',
+				component: DeviceMaterialsPage
 			}
 		]
 	},{
@@ -41,12 +57,18 @@ const routes = [
 			{
 				path: "users",
 				component: UsersPage
+			},{
+				path: 'devices',
+				component: CoatingDevicesPage
+			},{
+				path: "coating_gas_types",
+				component: CoatingGasTypesPage
 			}
 		]
 	}
 ];
 let router = new VueRouter({
-	mode: 'hash',
+	mode: 'history',
 	routes
 });
 

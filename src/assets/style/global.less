@@ -2,7 +2,8 @@
 @import './variables.less';
 
 html,
-body {
+body,
+#app {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -19,270 +20,71 @@ body {
 
 
 
-//位置
-.left5{margin-left: 5px;}
-.left10{margin-left: 10px;}
-.top10{ margin-top: 10px;}
-.top20{margin-top: 20px;}
-.top40{margin-top: 40px;}
-.top60{margin-top: 60px;}
-
-
-//文字
-.head{
-  font-size: 18px;
-  font-family: @font-family-main;
-}
-
-.normal-text{
-  font-size: 14px;
-  font-family: @font-family-main;
-  color: #606266;
-}
-
-.sub-text{
-  font-size: 12px;
-  font-family: @font-family-main;
-  color: @color-sub-text;
-}
-
-.sub-text-link{
-  font-size: 12px;
-  font-family: @font-family-main;
-  color: @color-font-hover;
-}
-
-.del-action{
-  cursor: pointer;
-}
-
-
-
-
-.talbe-actions{
-  display: flex;
-  align-items: center;
-}
-
-.edit-action{
-  margin-right: 10px;
-}
-
-
-
-
 /**
 * 基础布局
 */
-.cb-flex-row-start{
+.pt-flex-row-start{
 	display: flex;
 	flex-direction: row;
 }
 
-.cb-flex-row-between{
+.pt-flex-row-between{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 
-.cb-flex-row-between-center{
+.pt-flex-row-between-center{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.cb-flex-row-center-center{
+.pt-flex-row-center-center{
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
 
-.cb-flex-row-start-center{
+.pt-flex-row-start-center{
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 
 	
-.cb-flex-column-top-bottom{
+.pt-flex-column-top-bottom{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 	
-.cb-flex-column-center{
+.pt-flex-column-center{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.cb-flex-column-center-center{
+.pt-flex-column-center-center{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-
-/**
- * 二级子页面
- */
- .sub-pg-hd{
-	margin-bottom: 16px;
-}
-
-.sub-pg-bd{
-	padding: 25px 40px;
-	background-color: white;
-}
-
-.huanghe-pg{
-	.el-table--striped .el-table__body tr.el-table__row--striped td{
-		background: #FAFCFF;
-	}
-	
-	.el-table thead tr td{
-		font-family: PingFangSC-Regular;
-		font-size: 14px;
-		color: @color-info;
-	}
-	
-	.manage-table-pagination{
-			margin-top: 33px;
-			margin-bottom: 40px;
-			text-align: right;
-
-			font-family: PingFangSC-Regular;
-			font-size: 14px !important;
-			color: @color-normal-text;
-	}
-
-	.el-pagination__jump{
-		font-family: PingFangSC-Regular;
-		font-size: 14px;
-		color: @color-normal-text;
-	}
-
-	.hh-table-hd-cell .cell{
-		font-family: PingFangSC-Regular;
-		font-size: 14px;
-		color: @color-info;
-		font-weight: 200;
-	}
-
-	.hh-table-cell .cell{
-		font-family: PingFangSC-Regular;
-		font-size: 14px;
-		color: @color-normal-text;
-		font-weight: 200;
-	}
-
-	.el-icon-edit-outline{
-		color: #979797;
-		font-size: 18px;
-		padding-bottom: 2px;
-		
-	}
-
-	.el-icon-circle-close{
-		font-size: 18px;
-		color: #979797;
-		padding-bottom: 2px;
-	}
-
-	.hh-table-edit-icon{
-		margin-right: 27px;
-	}
-
-	.hh-table-edit-icon .el-link--inner{
-		padding-top: 2px;
-	}
-
-	.el-link.el-link--default:hover{
-		color: @color-normal-text;
-	}
-
-	.el-link.is-underline:hover:after{
-		border-bottom: 0px;
-	}
-	
-}
-
-.el-message-box__title{
-	justify-content: flex-start !important;
-}
-
-.del-confirm-btn{
-	width: 86px;
-	height: 36px;
-	background-color: @color-font-hover;
-}
-
-.el-message-box__content{
-	text-align: left;
-	padding: 10px 0px 24px 0px;
-	font-family: PingFangSC-Regular;
-	font-size: 14px;
-	color: @color-normal-text;
-}
-
-.el-form-item__label{
-	font-family: PingFangSC-Regular;
-	font-size: 14px;
-	color: #000000;
-}
-/**
- * 基础编辑页面-按钮样式
- */
-
- .edit-cancel-btn{
-	width: 86px;
-	padding: 0px;
-	line-height: 38.8px;
-	letter-spacing: 10px;
-	margin-right: 32px !important;
-	font-family: PingFangSC-Regular;
-	font-size: 14px;
-	color: #2D70ED;
-	border: 1px solid #2D70ED;
-
-	span{
-		padding-left: 10px;
-	}
- }
-
- .edit-confirm-btn{
-	width: 86px;
-	padding: 0px;
-	line-height: 38.8px;
-	letter-spacing: 10px;
-
-	font-family: PingFangSC-Regular;
-	font-size: 14px;
-	background-color: @color-font-hover;
-	border: 1px solid @color-font-hover;
-	color: white;
-
-	span{
-		padding-left: 10px;
-	}
-
-	
- }
-
 
 
  /**
 	*<!-- 最多显示一行 -->
 	*/
-.cb-ellipsis{
+.pt-ellipsis{
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-.cb-multi-ellipsis--l2{
+.pt-multi-ellipsis--l2{
 	display: -webkit-box;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -290,3 +92,12 @@ body {
 	-webkit-box-orient: vertical;
 }
 
+/**
+ * 二级子页面
+ */
+.sub-pg{	
+	height: calc(100% - 100px);
+	background-color: white;
+
+	padding: 20px;
+}

@@ -27,7 +27,7 @@ export default {
 	},
 	methods: {
 		loginClickHandler(){
-			//TODO.
+			this.$router.push({path: "/main"})
 		}
 	}
 }

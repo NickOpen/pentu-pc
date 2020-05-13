@@ -1,12 +1,12 @@
 <template>
-	<div class="pg dashboard-pg">
-		仪表盘
+	<div class="sub-pg coatings-pg">
+		喷涂
 	</div>
 </template>
 
 <script>
 export default {
-	name: "DashboardPage"
+	name: "CoatingsPage"
 }
 </script>
 
