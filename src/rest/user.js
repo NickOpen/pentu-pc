@@ -13,8 +13,6 @@ export function login(username, password) {
 		method: "POST",
 		body: JSON.stringify({username, password}),
 	}).then(res => {
-		let resp = res.json();
-		console.log(resp);
-		return resp;
+		return res.json();
 	});
 }

@@ -12,3 +12,6 @@
 
 export const ACCESS_TOKEN = "PENTU_TOKEN";              //token key
 export const TOKEN_EXPIRED_TIME = "PENTU_TOKEN_EXPIRED_TIME";
+
+
+export const PAGE_SIZE_COUNT = 10;
