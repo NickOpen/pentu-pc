@@ -43,16 +43,14 @@ module.exports = {
 	devServer: {
 			proxy: {
 				'/pentu/api': {
-						//target: 'http://localhost:8001',
-						target: 'http://www.nickshi.com',
+						target: 'http://localhost:8088',
+						//target: 'http://www.nickshi.com',
 						ws: false, //是否代理 websocket
-						changeOrigin: true
 				},
 				'/pentu/login': {
-						//target: 'http://localhost:8001',
-						target: 'http://www.nickshi.com',
+						target: 'http://localhost:8088',
+						//target: 'http://www.nickshi.com',
 						ws: false, //是否代理 websocket
-						changeOrigin: true
 				}
 			}
 	}

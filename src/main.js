@@ -3,7 +3,7 @@ import './config/index';
 import './assets/style/global.less';
 import './assets/style/variables.less';
 import routerConfig from './router/index';
-import {store} from './store';
+import {store} from './store/index';
 
 import App from './App.vue'
 

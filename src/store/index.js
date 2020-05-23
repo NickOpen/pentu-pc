@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import Message from 'element-ui';
 /**
  * register Vue's state management lib.
  */
 Vue.use(Vuex);
-
 
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
@@ -24,15 +23,14 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
 
 const store = new Vuex.Store({
-	modules,
-	strict: process.env.NODE_ENV !== 'production'
-});
-
+  modules
+})
 
 /**
  *异步Action处理流程
  * @param {*} param0 
  */
+
 store.commonActionHandler = async ({commit, mutation, service, payload}) => {
 	try{
 		let response = await service(payload);
@@ -42,14 +40,19 @@ store.commonActionHandler = async ({commit, mutation, service, payload}) => {
 			}
 			return response.data;
 		}else{
-			//Notify for client user.
-			//TODO.
+			Message({
+				title: response.message
+			});
+
 			return Promise.reject(new Error(response));
 		}
 	}catch(err){
+		Message({
+			title: JSON.stringify(err)
+		});
 		return Promise.reject(new Error());
 	}
 }
 
 
-export {store}
+export {store};
