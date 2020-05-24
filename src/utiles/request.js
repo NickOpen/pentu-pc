@@ -2,13 +2,18 @@ import Vue from 'vue'
 import axios from 'axios';
 import {Message} from 'element-ui';
 import qs from 'qs';
-import {ACCESS_TOKEN, TOKEN_EXPIRED_TIME} from "../config/sysConstants";
+import {ACCESS_TOKEN, TOKEN_EXPIRED_TIME, REST_API_PREFIX_PRODUCT} from "../config/sysConstants";
 import moment from "moment";
 
+let mode = process.env.NODE_ENV;
+if(mode === 'product'){
+	axios.defaults.baseURL = REST_API_PREFIX_PRODUCT;
+}else{
+	axios.defaults.baseURL = '/pentu/api';
+}
 
-
-axios.defaults.baseURL = '/pentu/api';
 axios.defaults.timeout = 6000;
+
 //create axios
 const request = axios.create({})
 

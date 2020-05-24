@@ -30,7 +30,7 @@ export default {
 				payload: {name, page: page - 1, size}
 			});
 
-			commit('setCoatingCurrentPage', page + 1);
+			commit('setCoatingCurrentPage', page);
 
 			return ret;
 		},
@@ -40,7 +40,7 @@ export default {
 				commit,
 				mutation: 'setCurrentCoating',
 				service: coatingRestAdapter.get,
-				payload: {id}
+				payload: id
 			});
 
 			return ret;
@@ -52,7 +52,7 @@ export default {
 				payload: payload
 			});
 
-			this.dispatch('listCoatings', state.page);
+			this.dispatch('listCoatings', {page: state.page});
 
 			return ret;
 		},
@@ -63,9 +63,16 @@ export default {
 				payload: payload
 			});
 
-			this.dispatch('listCoatings', state.page);
+			this.dispatch('listCoatings', {page: state.page});
 
 			return ret;
+		},
+
+		async deleteCoating({state}, id){
+			let resp = await coatingRestAdapter.del(id);
+			if(resp.status === 0){
+				this.dispatch('listCoatings', {page: state.page});
+			}
 		}
 	}
 }

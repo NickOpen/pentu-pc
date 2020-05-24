@@ -47,8 +47,8 @@
     <el-main class="main-container">
 			<div class="main-breadcrumb">
 				<el-breadcrumb separator="/">
-					<el-breadcrumb-item :to="{ path: '/' }">基础设置</el-breadcrumb-item>
-					<el-breadcrumb-item>设备型号</el-breadcrumb-item>
+					<el-breadcrumb-item :to="{ path: '/main/coatings' }">喷涂类型</el-breadcrumb-item>
+					<!--el-breadcrumb-item></el-breadcrumb-item-->
 				</el-breadcrumb>
 			</div>
 

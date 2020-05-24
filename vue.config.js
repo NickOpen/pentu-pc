@@ -32,7 +32,12 @@ module.exports = {
 												name: 'assets/[name].[hash:8].[ext]'
 										})
 	},
-
+	configureWebpack: {
+		output: {
+			filename: '[name].[hash].js',
+		}
+	},
+	outputDir: 'dist',
 	pluginOptions: {
 			'style-resources-loader': {
 					preProcessor: 'less',
@@ -41,17 +46,22 @@ module.exports = {
 	},
 
 	devServer: {
-			proxy: {
-				'/pentu/api': {
-						target: 'http://localhost:8088',
-						//target: 'http://www.nickshi.com',
-						ws: false, //是否代理 websocket
-				},
-				'/pentu/login': {
-						target: 'http://localhost:8088',
-						//target: 'http://www.nickshi.com',
-						ws: false, //是否代理 websocket
-				}
+		hot: true,
+		proxy: {
+			'/pentu/api': {
+					target: 'http://localhost:8088',
+					//target: 'https://wwww.pentu.nickshi.com:8001',
+					ws: false, //是否代理 websocket
+					changeOrigin: true,
+					secure: false,
+			},
+			'/pentu/login': {
+					target: 'http://localhost:8088',
+					//target: 'https://wwww.pentu.nickshi.com:8001',
+					ws: false, //是否代理 websocket
+					changeOrigin: true,
+					secure: false,
 			}
+		}
 	}
 }
