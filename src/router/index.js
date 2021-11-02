@@ -6,6 +6,10 @@ import MainLayout from '@components/layout/MainLayout';
 
 import LoginPage from '@pages/Login';
 import CoatingsPage from '@pages/Coatings';
+
+import CoatingsContainer from '@pages/coatings/CoatingsIndex.vue';
+//import MetalCoatingPage from '@pages/coatings/CoatingsMetal.vue'
+
 import CoatingMethodsPage from '@pages/CoatingMethods.vue'
 import PerformanceTestPage from '@pages/PerformanceTest.vue';
 import DeviceMaterialsPage from '@pages/DeviceMaterials.vue';
@@ -32,11 +36,26 @@ const routes = [
 		path: '/main',
 		name: "Main",
 		component: MainLayout,
-		redirect: "/main/coatings",
 		children: [
 			{
 				path: "coatings",
-				component: CoatingsPage
+				//redirect: "/main/coatings/coatings_metal",
+				component: CoatingsContainer,
+				children: [
+					{
+						path: "coatings_metal",
+						component: CoatingsPage
+					},{
+						path: "coatings_ceramic",
+						component: CoatingsPage
+					},{
+						path: "coatings_special",
+						component: CoatingsPage
+					},{
+						path: "coatings_electrolyte",
+						component: CoatingsPage
+					}
+				]
 			},{
 				path: 'coating_methods',
 				component: CoatingMethodsPage
@@ -68,7 +87,7 @@ const routes = [
 	}
 ];
 let router = new VueRouter({
-	mode: 'history',
+	mode: 'hash',
 	routes
 });
 

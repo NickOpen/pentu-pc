@@ -1,7 +1,10 @@
 <template>
 <el-container class="main-page">
   <el-header class="pt-flex-row-between-center main-header">
-		<span class="slogan">热喷涂工艺规程查询</span>
+		<span class="slogan">
+			<span>热喷涂工艺规程大数据系统</span>
+			<div class="sub-title">西安交通大学材料学院热喷涂实验室支持</div>
+		</span>
 		<div class="pt-flex-row-between-center">
 			<i class="el-icon-user-solid user-icon"></i>
 			<el-link class="user-name" @click="logout">退出</el-link>
@@ -11,15 +14,23 @@
     <el-aside class="main-nav-container">
 			<el-menu
 				router
-				default-active="/main/coatings"
+				default-active="/main/coatings/coatings_metal"
 				class="main-nav"
 				background-color="#545c64"
 				text-color="#fff"
 				active-text-color="#E5A312">
-				<el-menu-item index="/main/coatings">
-					<i class="el-icon-menu"></i>
-					<span slot="title">喷涂类型</span>
-				</el-menu-item>
+				<el-submenu index="/main/coatings">
+					<template slot="title">
+						<i class="el-icon-menu"></i>
+						<span>涂层类型</span>
+					</template>
+					<el-menu-item-group>
+						<el-menu-item index="/main/coatings/coatings_metal">金属涂层</el-menu-item>
+						<el-menu-item index="/main/coatings/coatings_ceramic">陶瓷涂层</el-menu-item>
+						<el-menu-item index="/main/coatings/coatings_special">特殊涂层</el-menu-item>
+						<el-menu-item index="/main/coatings/coatings_electrolyte">电解质涂层</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
 				<el-menu-item index="/main/coating_methods">
 					<i class="el-icon-s-grid"></i>
 					<span slot="title">喷涂方法</span>
@@ -47,14 +58,12 @@
     <el-main class="main-container">
 			<div class="main-breadcrumb">
 				<el-breadcrumb separator="/">
-					<el-breadcrumb-item :to="{ path: '/main/coatings' }">喷涂类型</el-breadcrumb-item>
+					<el-breadcrumb-item :to="{ path: '/main/coatings' }">涂层类型</el-breadcrumb-item>
 					<!--el-breadcrumb-item></el-breadcrumb-item-->
 				</el-breadcrumb>
 			</div>
 
-			<router-view>
-
-			</router-view>
+			<router-view></router-view>
 		</el-main>
   </el-container>
 </el-container>
@@ -67,8 +76,6 @@ export default {
 	methods: {
 		logout(){
 			this.$router.push({path: '/login'});
-
-			//TODO.
 		}
 	}
 }
@@ -123,6 +130,21 @@ export default {
 	}
 	.main-container{
 		background-color: #F1F5F9;
+	}
+
+	.sub-title{
+		font-size: 10px;
+		margin-top: 4px;
+		line-height: 10px;
+		color: gray;
+	}
+
+	.el-menu-item-group__title{
+		padding: 0px;
+	}
+
+	.el-menu-item-group .el-menu-item{
+		padding-left: 50px !important;
 	}
 }
 </style>

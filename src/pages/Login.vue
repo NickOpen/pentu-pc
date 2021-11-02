@@ -59,20 +59,20 @@ export default {
 		loginClickHandler(){
 			let that = this;
 			this.$refs.userForm.validate((valid) => {
-          if (!valid) {
-            return;
+				if (!valid) {
+					return;
+				}
+				let payload = {
+					username: this.userForm.username,
+					password: md5(this.userForm.password)
+				}
+				
+				this.login(payload).then(ret => {
+					if(ret){
+						that.$router.push({path: "/main"})
 					}
-					let payload = {
-						username: this.userForm.username,
-						password: md5(this.userForm.password)
-					}
-					
-					this.login(payload).then(ret => {
-						if(ret){
-							that.$router.push({path: "/main"})
-						}
-					})
-        });
+				})
+			});
 		}
 	}
 }
@@ -80,11 +80,9 @@ export default {
 
 <style lang="less">
 .login-pg{
-	width: 100%;
 	margin-top: 10%;
 	display: flex;
 	justify-content: center;
-	
 
 	.login-form{
 		width: 280px;

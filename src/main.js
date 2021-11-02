@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import './config/index';
+import 'normalize.css';
 import './assets/style/global.less';
 import './assets/style/variables.less';
 import routerConfig from './router/index';

@@ -4,9 +4,9 @@
  export const LOGIN_API_PREFIX_DEV = "http://localhost:8080/pentu/login";
 
  //no-unused-vars
- export const REST_API_PREFIX_PRODUCT = "http://www.pentu.nickshi.com/pentu/api";
+ export const REST_API_PREFIX_PRODUCT = "https://www.pentu.nickshi.com/pentu/api";
  //no-unused-vars
- export const LOGIN_API_PREFIX_PRODUCT = "http://www.pentu.nickshi.com/pentu/login";
+ export const LOGIN_API_PREFIX_PRODUCT = "https://www.pentu.nickshi.com/pentu/login";
 
 
 

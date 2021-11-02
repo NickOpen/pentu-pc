@@ -144,7 +144,7 @@ let emptyCoating = {
 	docReferences: ""
 };
 export default {
-	name: "CoatingsPage",
+	name: "MetalCoatingPage",
 	data(){
 		return {
 			columns: [
@@ -366,5 +366,4 @@ export default {
 		padding: 20px 20px 0px 20px;
 	}
 }
-
 </style>
