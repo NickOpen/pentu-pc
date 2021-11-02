@@ -43,14 +43,6 @@ export const isMobile = function () {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|MicroMessenger/i.test(navigator.userAgent);
 }
 
-export const phoneNumberVaildator = function(phoneNumber){
-	if(!(/^1[345789]\d{9}$/.test(phoneNumber))){
-		return false;
-	}else{
-			return true;
-	}
-}
-
 export const moneyAmountFormat = (amount, precision = 1) => {
 	if(!amount){
 		return 0.0;
@@ -76,4 +68,22 @@ export const isNumber = (value) => {
 		return false;
 	}
 }
+
+export const phoneNumberVaildator = function(phoneNumber){
+	if((/^1[345789]\d{9}$/.test(phoneNumber))){
+		return true;
+	}else{
+			return false;
+	}
+}
+
+export const  isNumberVailatorForFormInput = function(rule, value, callback){
+  if(!value){
+    callback(new Error('请输入'));
+  }else if(Number.isNaN(Number(value))){
+    callback(new Error('请输入数字值'));
+  }else{
+    callback();
+  }
+};
 

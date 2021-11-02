@@ -58,7 +58,6 @@
 			<div class="main-breadcrumb">
 				<el-breadcrumb separator="/">
 					<el-breadcrumb-item v-for="item in breadcrumbs" :key="item">{{item}}</el-breadcrumb-item>
-					<!--el-breadcrumb-item></el-breadcrumb-item-->
 				</el-breadcrumb>
 			</div>
 
@@ -182,7 +181,7 @@ export default {
 
 		.main-footer{
 			margin-top: 20px;
-			line-height: 60px;
+			line-height: 68px;
 			background-color: white;
 			color: #BBBBBB;
 			text-align: right;

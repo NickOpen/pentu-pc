@@ -5,10 +5,13 @@ import UserLayout from '@components/layout/UserLayout';
 import MainLayout from '@components/layout/MainLayout';
 
 import LoginPage from '@pages/Login';
-import CoatingsPage from '@pages/Coatings';
 
 import CoatingsContainer from '@pages/coatings/CoatingsIndex.vue';
-//import MetalCoatingPage from '@pages/coatings/CoatingsMetal.vue'
+import MetalCoatingPage from '@pages/coatings/CoatingsMetal.vue'
+import CeramicCoatingPage from '@pages/coatings/CoatingsCeramic.vue';
+import ElectrolyteCoatingPage from '@pages/coatings/CoatingsElectrolyte.vue';
+import SpecialCoatingPage from '@pages/coatings/CoatingsSpecial.vue';
+
 
 import CoatingMethodsPage from '@pages/CoatingMethods.vue'
 import PerformanceTestPage from '@pages/PerformanceTest.vue';
@@ -48,25 +51,25 @@ const routes = [
 				children: [
 					{
 						path: "coatings_metal",
-						component: CoatingsPage,
+						component: MetalCoatingPage,
 						meta:{
 							name: "金属涂层"
 						},
 					},{
 						path: "coatings_ceramic",
-						component: CoatingsPage,
+						component: CeramicCoatingPage,
 						meta:{
 							name: "陶瓷涂层"
 						},
 					},{
 						path: "coatings_special",
-						component: CoatingsPage,
+						component: SpecialCoatingPage,
 						meta:{
 							name: "特殊涂层"
 						},
 					},{
 						path: "coatings_electrolyte",
-						component: CoatingsPage,
+						component: ElectrolyteCoatingPage,
 						meta:{
 							name: "电解质涂层"
 						},

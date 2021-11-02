@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Message from 'element-ui';
+import {Message} from 'element-ui';
 /**
  * register Vue's state management lib.
  */
@@ -19,8 +19,6 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   modules[moduleName] = value.default
   return modules
 }, {})
-
-
 
 const store = new Vuex.Store({
   modules

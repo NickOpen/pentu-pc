@@ -15,3 +15,22 @@ export const TOKEN_EXPIRED_TIME = "PENTU_TOKEN_EXPIRED_TIME";
 
 
 export const PAGE_SIZE_COUNT = 10;
+
+export const COATING_TYPES = {
+  METAL: {
+    key: "METAL",
+    title: "金属涂层"
+  },
+  CERAMIC: {
+    key: "CERAMIC",
+    title: "陶瓷涂层"
+  }, 
+  SPECIAL: {
+    key: "SPECIAL",
+    title: "特殊涂层"
+  },
+  ELECTROLYTE : {
+    key: "ELECTROLYTE",
+    title: "电解质涂层"
+  }
+}
