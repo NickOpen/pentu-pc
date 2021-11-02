@@ -3,7 +3,6 @@
   <el-header class="pt-flex-row-between-center main-header">
 		<span class="slogan">
 			<span>热喷涂工艺规程大数据系统</span>
-			<div class="sub-title">西安交通大学材料学院热喷涂实验室支持</div>
 		</span>
 		<div class="pt-flex-row-between-center">
 			<i class="el-icon-user-solid user-icon"></i>
@@ -58,12 +57,18 @@
     <el-main class="main-container">
 			<div class="main-breadcrumb">
 				<el-breadcrumb separator="/">
-					<el-breadcrumb-item :to="{ path: '/main/coatings' }">涂层类型</el-breadcrumb-item>
+					<el-breadcrumb-item v-for="item in breadcrumbs" :key="item">{{item}}</el-breadcrumb-item>
 					<!--el-breadcrumb-item></el-breadcrumb-item-->
 				</el-breadcrumb>
 			</div>
 
-			<router-view></router-view>
+			<div class="main-content">
+				<router-view></router-view>
+			</div>
+			
+			<div class="main-footer">
+				<div>Copyright © 2021.西安交通大学材料学院热喷涂实验室支持 All Rights Reserved. </div>
+			</div>
 		</el-main>
   </el-container>
 </el-container>
@@ -73,10 +78,40 @@
 <script>
 export default {
 	name: "MainLayout",
+	data(){
+		return {
+			breadcrumbs: []
+		}
+	},
 	methods: {
 		logout(){
 			this.$router.push({path: '/login'});
 		}
+	},
+	beforeRouteUpdate(to, from, next){
+		let breadcrumbs = [];
+		to.matched.forEach(node => {
+			if(node.meta && node.meta.name){
+				breadcrumbs.push(node.meta.name);
+			}
+		});
+
+		this.breadcrumbs = breadcrumbs;
+
+		next && next();
+	},
+
+	beforeRouteEnter(to, from, next){
+		let breadcrumbs = [];
+		to.matched.forEach(node => {
+			if(node.meta && node.meta.name){
+				breadcrumbs.push(node.meta.name);
+			}
+		});
+
+		next(vm => {
+			vm.breadcrumbs = breadcrumbs;
+		});
 	}
 }
 </script>
@@ -117,19 +152,43 @@ export default {
 		width: 200px;
 	}
 
-	.main-breadcrumb{
-		padding: 14px 20px;
-		background-color: white;
-    border-bottom: 2px solid #E4E7ED;
-		border-radius: 2px;
-		margin-bottom: 12px;
-	}
+
 
 	.el-menu{
 		border-right: solid 0px #545c64;
 	}
+
 	.main-container{
 		background-color: #F1F5F9;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 0px;
+
+		.main-breadcrumb{
+			margin: 20px 20px 0px 20px;
+			padding: 14px 20px;
+			background-color: white;
+			border-bottom: 2px solid #E4E7ED;
+			border-radius: 2px;
+			margin-bottom: 12px;
+		}
+
+		.main-content{
+			flex: 1;
+			background-color: white;
+			margin: 0px 20px 0px 20px;
+		}
+
+		.main-footer{
+			margin-top: 20px;
+			line-height: 60px;
+			background-color: white;
+			color: #BBBBBB;
+			text-align: right;
+			padding-right: 20px;
+			font-size: 14px;
+		}
 	}
 
 	.sub-title{

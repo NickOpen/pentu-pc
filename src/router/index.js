@@ -36,35 +36,60 @@ const routes = [
 		path: '/main',
 		name: "Main",
 		component: MainLayout,
+		redirect:"/main/coatings",
 		children: [
 			{
 				path: "coatings",
-				//redirect: "/main/coatings/coatings_metal",
+				redirect: "/main/coatings/coatings_metal",
 				component: CoatingsContainer,
+				meta:{
+					name: "涂层类型"
+				},
 				children: [
 					{
 						path: "coatings_metal",
-						component: CoatingsPage
+						component: CoatingsPage,
+						meta:{
+							name: "金属涂层"
+						},
 					},{
 						path: "coatings_ceramic",
-						component: CoatingsPage
+						component: CoatingsPage,
+						meta:{
+							name: "陶瓷涂层"
+						},
 					},{
 						path: "coatings_special",
-						component: CoatingsPage
+						component: CoatingsPage,
+						meta:{
+							name: "特殊涂层"
+						},
 					},{
 						path: "coatings_electrolyte",
-						component: CoatingsPage
+						component: CoatingsPage,
+						meta:{
+							name: "电解质涂层"
+						},
 					}
 				]
 			},{
 				path: 'coating_methods',
-				component: CoatingMethodsPage
+				component: CoatingMethodsPage,
+				meta:{
+					name: "涂层方法"
+				},
 			},{
 				path: 'performance_test',
-				component: PerformanceTestPage
+				component: PerformanceTestPage,
+				meta:{
+					name: "性能检测"
+				},
 			},{
 				path: 'device_materials',
-				component: DeviceMaterialsPage
+				component: DeviceMaterialsPage,
+				meta:{
+					name: "设备材料"
+				},
 			}
 		]
 	},{
