@@ -46,6 +46,22 @@ export default {
 	.edit-coating-form{
 		margin-left: 40px;
 		margin-right: 40px;
+
+		.powder-rate-input > input{
+			border-top-right-radius: 0px;
+			border-bottom-right-radius: 0px;
+		}
+
+		.powder-rate-unit-select{
+			color: #909399;
+			input{
+				border-left: 0px;
+				border-top-left-radius: 0px;
+				border-bottom-left-radius: 0px;
+				background-color: #F5F7FA;
+				color: #909399;
+			}
+		}
 	}
 	.el-form-item__label{
 		text-align: left;

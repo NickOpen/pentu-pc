@@ -12,6 +12,7 @@ import CeramicCoatingPage from '@pages/coatings/CoatingsCeramic.vue';
 import ElectrolyteCoatingPage from '@pages/coatings/CoatingsElectrolyte.vue';
 import VacuumCoatingPage from '@pages/coatings/CoatingsVacuum.vue';
 import AuroraCoatingPage from '@pages/coatings/CoatingsAurora.vue';
+import AirColdCoatingPage from '@pages/coatings/CoatingAirCold.vue';
 
 import CoatingMethodsPage from '@pages/CoatingMethods.vue'
 import PerformanceTestPage from '@pages/PerformanceTest.vue';
@@ -72,6 +73,12 @@ const routes = [
 						component: VacuumCoatingPage,
 						meta:{
 							name: "真空冷喷涂涂层"
+						},
+					},{
+						path: "coatings_air_cold",
+						component: AirColdCoatingPage,
+						meta:{
+							name: "大气冷喷涂涂层"
 						},
 					},{
 						path: "coatings_aurora",

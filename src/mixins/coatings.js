@@ -1,14 +1,19 @@
 import {mapActions, mapState} from 'vuex';
 import {isNumberVailatorForFormInput} from '../utiles/index';
+import {POWDER_RATE_UNITS, PLATING_TYPES} from '../config/sysConstants';
 
 let emptyCoating = {
 	name: "",
 	current: null,
+	outputPower: null,
 	totalFlowAmount: null,
-	workingGasId: null,
-	coatingDeviceId: null,
+	workingGas: null,
+	mixedGas: null,
+	platingType: null,
+	coatingDeviceType: null,
 	distance: null,
 	powderRate: null,
+	powderRateUnit: POWDER_RATE_UNITS.R_MIN.key,
 	features: "",
 	docReferences: ""
 };
@@ -22,25 +27,46 @@ export default {
 					label: "ID"
 				},{
 					prop: "name",
-					label: "名称"
+					label: "涂层材料"
 				},{
 					prop: "current",
 					label: "电流(A)"
 				},{
+					prop: "outputPower",
+					label: "输出功率"
+				},{
 					prop: "totalFlowAmount",
 					label: "总气流量(SLPM)"
 				},{
-					prop: "workingGasName",
+					prop: "workingGas",
 					label: "工作气体"
 				},{
-					prop: "coatingDeviceName",
-					label: "设备"
+					prop: "mixedGas",
+					label: "混合气体"
+				},{
+					prop: "platingType",
+					label: "喷涂方法",
+					formatter: function(row, col){
+						let value = row[col];
+						if(value){
+							return PLATING_TYPES[value].title
+						}
+					}
+				},{
+					prop: "coatingDeviceType",
+					label: "设备型号"
 				},{
 					prop: "distance",
-					label: "喷涂距离"
+					label: "喷涂距离(mm)"
 				},{
 					prop: "powderRate",
-					label: "送粉率"
+					label: "送粉率",
+					formatter: function(row, col){
+						let value = row[col];
+						if(value){
+							return `${value} ` + POWDER_RATE_UNITS[row.powderRateUnit]; 
+						}
+					}
 				}
 			],
 
@@ -50,9 +76,13 @@ export default {
 			},
 
 			editCoatingFormRules: {
-				name: [{ required: true, message: '请填写名称', trigger: 'blur'}],
+				name: [{ required: true, message: '请填写涂层材料名称', trigger: 'blur'}],
 				current: [
 					{ required: true, message: '请填写电流', trigger: 'blur'}, 
+					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
+				],
+				outputPower: [
+					{ required: true, message: '请填写输出功率', trigger: 'blur'}, 
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				],
 				totalFlowAmount: [
@@ -67,8 +97,10 @@ export default {
 					{ required: true, message: '请填写送粉率', trigger: 'blur'}, 
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				],
-				workingGasId: [{ required: true, message: '请选择工作气体类型', trigger: 'change'}],
-				coatingDeviceId: [{ required: true, message: '请选择设备', trigger: 'change'}],
+				platingType: [{ required: true, message: '请选择喷涂方法', trigger: 'change'}],
+				workingGas: [{ required: true, message: '请输入工作气体', trigger: 'blur'}],
+				mixedGas: [{ required: true, message: '请填写混合气体', trigger: 'blur'}],
+				coatingDeviceType: [{ required: true, message: '请输入设备型号', trigger: 'blur'}],
 			},
 
 			featuresDrawer: false,
@@ -117,18 +149,7 @@ export default {
 		async handleEditCoating(coating){
 			let editCoating = await this.getCoating(coating.id);
 			if(editCoating){
-				this.editCoatingForm.form = {
-					id: editCoating.id,
-					name: editCoating.name,
-					current: editCoating.current,
-					totalFlowAmount: editCoating.totalFlowAmount,
-					workingGasId: editCoating.workingGasId,
-					coatingDeviceId: editCoating.coatingDeviceId,
-					distance: editCoating.distance,
-					powderRate: editCoating.powderRate,
-					features: editCoating.features,
-					docReferences: editCoating.docReferences
-				}
+				this.editCoatingForm.form = {...editCoating};
 				this.editCoatingForm.dialogFormVisible = true;
 
 				this.$nextTick(() => {

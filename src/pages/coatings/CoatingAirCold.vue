@@ -10,13 +10,13 @@ import {COATING_TYPES} from '../../config/sysConstants';
 import BaseCoating from './BaseCoating.vue';
 
 export default {
-	name: "MetalCoatingPage",
+	name: "AirColdCoatingPage",
 	components: {
 		[BaseCoating.name]: BaseCoating
 	},
 	data(){
 		return {
-			type: COATING_TYPES.METAL
+			type: COATING_TYPES.AIR_COLD
 		}
 	}
 }

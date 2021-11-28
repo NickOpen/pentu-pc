@@ -12,6 +12,14 @@
 				:prop="column.prop"
 				:label="column.label"
 				v-bind:key="column.prop">
+        <template slot-scope="scope">
+          <div v-if="column.formatter">
+            {{column.formatter(scope.row, column.props)}}
+          </div>
+          <div v-else>
+            {{scope.row[column.prop]}}
+          </div>
+        </template>
 			</el-table-column>
 			<el-table-column
 				label="性能特点">
@@ -71,7 +79,7 @@
 		</el-drawer>
 
 		<el-drawer
-			title="文献出处"
+			title="文献或出处"
 			:visible.sync="referenceDrawer"
 			direction="rtl"
 			:before-close="handleCloseReferenceDrawer">
@@ -81,16 +89,21 @@
 		</el-drawer>
 
 
-		<el-dialog title="编辑涂层类型" :visible.sync="editCoatingForm.dialogFormVisible" width="38%">
+		<el-dialog title="编辑涂层类型" :visible.sync="editCoatingForm.dialogFormVisible" width="48%">
 			<el-form :model="editCoatingForm.form" 
 				:hide-required-asterisk="true"
 				class="edit-coating-form" ref="editCoatingFormRef" :rules="editCoatingFormRules">
-				<el-form-item label="名称" label-width="120px" prop="name">
+				<el-form-item label="涂层材料" label-width="120px" prop="name">
 					<el-input v-model.trim="editCoatingForm.form.name"></el-input>
 				</el-form-item>
 				<el-form-item label="电流" label-width="120px" prop="current">
 					<el-input v-model.number="editCoatingForm.form.current">
 						<template slot="append">A</template>
+					</el-input>
+				</el-form-item>
+				<el-form-item label="输出功率" label-width="120px" prop="outputPower">
+					<el-input v-model.number="editCoatingForm.form.outputPower">
+						<template slot="append">kW</template>
 					</el-input>
 				</el-form-item>
 				<el-form-item label="总气流量" label-width="120px" prop="totalFlowAmount">
@@ -99,17 +112,25 @@
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="工作气体" label-width="120px" prop="workingGasId">
-					<el-select v-model="editCoatingForm.form.workingGasId" placeholder="请选择">
-						<el-option v-for="gasType in allWorkingGasType" :key="gasType.id" :label="gasType.name" :value="gasType.id"></el-option>
+				<el-form-item label="工作气体" label-width="120px" prop="workingGas">
+          <el-input v-model.number="editCoatingForm.form.workingGas"></el-input>
+				</el-form-item>
+
+				<el-form-item label="混合气体" label-width="120px" prop="mixedGas">
+					<el-input v-model.number="editCoatingForm.form.mixedGas"></el-input>
+				</el-form-item>
+
+        <el-form-item label="喷涂方法" label-width="120px" prop="platingType">
+					<el-select v-model="editCoatingForm.form.platingType" placeholder="请选择">
+						<el-option v-for="platingType in allPlatingTypes" :key="platingType.key" 
+              :label="platingType.title" :value="platingType.key"></el-option>
 					</el-select>
 				</el-form-item>
 
-				<el-form-item label="设备" label-width="120px" prop="coatingDeviceId">
-					<el-select v-model="editCoatingForm.form.coatingDeviceId" placeholder="请选择">
-						<el-option v-for="device in allCoatingDevices" :key="device.id" :label="device.name" :value="device.id"></el-option>
-					</el-select>
+				<el-form-item label="设备型号" label-width="120px" prop="coatingDeviceType">
+          <el-input v-model.number="editCoatingForm.form.coatingDeviceType"></el-input>
 				</el-form-item>
+
 				<el-form-item label="喷涂距离" label-width="120px" prop="distance">
 					<el-input v-model.number="editCoatingForm.form.distance">
 						<template slot="append">mm</template>
@@ -117,14 +138,19 @@
 				</el-form-item>
 
 				<el-form-item label="送粉率" label-width="120px" prop="powderRate">
-					<el-input v-model.number="editCoatingForm.form.powderRate">
-						<template slot="append">r/min</template>
-					</el-input>
+          <el-col :span="19">
+            <el-input v-model.number="editCoatingForm.form.powderRate" class="powder-rate-input"></el-input>
+          </el-col>
+          <el-col :span="5">
+            <el-select v-model="editCoatingForm.form.powderRateUnit" class="powder-rate-unit-select">
+              <el-option v-for="rate in allPowderRateUnits" :key="rate.key" :label="rate.title" :value="rate.key"></el-option>
+            </el-select>
+          </el-col>
 				</el-form-item>
-				<el-form-item label="特性" label-width="120px">
+				<el-form-item label="性能特点" label-width="120px">
 					<el-input type="textarea" :rows="2" v-model.trim="editCoatingForm.form.features"></el-input>
 				</el-form-item>
-				<el-form-item label="文献" label-width="120px">
+				<el-form-item label="文献或出处" label-width="120px">
 					<el-input type="textarea" :rows="2" v-model.trim="editCoatingForm.form.docReferences"></el-input>
 				</el-form-item>
 			</el-form>
@@ -138,24 +164,39 @@
 
 <script>
 import coatingMixins from '../../mixins/coatings';
-import {COATING_TYPES} from '../../config/sysConstants';
+import {COATING_TYPES, PLATING_TYPES, POWDER_RATE_UNITS} from '../../config/sysConstants';
 
 export default {
-	name: "SpecialCoatingPage",
+	name: "BaseCoating",
 	mixins: [coatingMixins],
+  props: {
+    type: {
+      type: Object,
+      default: COATING_TYPES.METAL,
+    }
+  },
+  data(){
+    return {
+      allPlatingTypes: PLATING_TYPES,
+      allPowderRateUnits: POWDER_RATE_UNITS
+    }
+  },
 	methods: {
 		ConfirmEditEventHandler(){
-			this.editCoatingFormConfirmHandler(COATING_TYPES.SPECIAL.key);
+			this.editCoatingFormConfirmHandler(this.type.key);
 		},
 
 		getPageData(page){
-			this.listCoatings({type: COATING_TYPES.SPECIAL.key, page});
+			this.listCoatings({type: this.type.key, page});
 		},
 	},
 	mounted(){
-		this.listCoatings({type: COATING_TYPES.SPECIAL.key, page: 1});
+		this.listCoatings({type: this.type.key, page: 1});
 		this.getAllWorkingGasTypes();
 		this.getAllCoatingDevices();
 	}
 }
 </script>
+<style lang="less">
+
+</style>
