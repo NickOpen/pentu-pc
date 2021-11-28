@@ -24,10 +24,9 @@
 						<span>涂层类型</span>
 					</template>
 					<el-menu-item-group>
-						<el-menu-item index="/main/coatings/coatings_metal">金属涂层</el-menu-item>
-						<el-menu-item index="/main/coatings/coatings_ceramic">陶瓷涂层</el-menu-item>
-						<el-menu-item index="/main/coatings/coatings_special">特殊涂层</el-menu-item>
-						<el-menu-item index="/main/coatings/coatings_electrolyte">电解质涂层</el-menu-item>
+						<el-menu-item v-for="coatingType in coatingTypes"
+							:index="'/main/coatings/coatings_' + coatingType.key.toLowerCase()" 
+							:key="coatingType.key">{{coatingType.title}}</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-menu-item index="/main/coating_methods">
@@ -75,11 +74,15 @@
 </template>
 
 <script>
+import {COATING_TYPES} from '../../config/sysConstants';
+
 export default {
 	name: "MainLayout",
 	data(){
 		return {
-			breadcrumbs: []
+			breadcrumbs: [],
+
+			coatingTypes: Object.keys(COATING_TYPES).map(key => COATING_TYPES[key])
 		}
 	},
 	methods: {

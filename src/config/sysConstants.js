@@ -25,12 +25,16 @@ export const COATING_TYPES = {
     key: "CERAMIC",
     title: "陶瓷涂层"
   }, 
-  SPECIAL: {
-    key: "SPECIAL",
-    title: "特殊涂层"
-  },
   ELECTROLYTE : {
     key: "ELECTROLYTE",
     title: "电解质涂层"
+  },
+  VACUUM: {
+    key: "VACUUM",
+    title: "真空冷喷涂涂层"
+  },
+  AURORA: {
+    key: "AURORA",
+    title: "极光熔覆涂层"
   }
 }

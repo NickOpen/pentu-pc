@@ -14,6 +14,7 @@ const  storageOptions = {
 	storage: 'local' // storage name session, local, memory
 }
 
+export const PAGE_SIZE_COUNT = 10;
 
 Vue.use(VueStorage, storageOptions);
 Vue.use(ElementUI);

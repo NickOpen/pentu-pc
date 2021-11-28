@@ -10,8 +10,8 @@ import CoatingsContainer from '@pages/coatings/CoatingsIndex.vue';
 import MetalCoatingPage from '@pages/coatings/CoatingsMetal.vue'
 import CeramicCoatingPage from '@pages/coatings/CoatingsCeramic.vue';
 import ElectrolyteCoatingPage from '@pages/coatings/CoatingsElectrolyte.vue';
-import SpecialCoatingPage from '@pages/coatings/CoatingsSpecial.vue';
-
+import VacuumCoatingPage from '@pages/coatings/CoatingsVacuum.vue';
+import AuroraCoatingPage from '@pages/coatings/CoatingsAurora.vue';
 
 import CoatingMethodsPage from '@pages/CoatingMethods.vue'
 import PerformanceTestPage from '@pages/PerformanceTest.vue';
@@ -62,16 +62,22 @@ const routes = [
 							name: "陶瓷涂层"
 						},
 					},{
-						path: "coatings_special",
-						component: SpecialCoatingPage,
-						meta:{
-							name: "特殊涂层"
-						},
-					},{
 						path: "coatings_electrolyte",
 						component: ElectrolyteCoatingPage,
 						meta:{
 							name: "电解质涂层"
+						},
+					},{
+						path: "coatings_vacuum",
+						component: VacuumCoatingPage,
+						meta:{
+							name: "真空冷喷涂涂层"
+						},
+					},{
+						path: "coatings_aurora",
+						component: AuroraCoatingPage,
+						meta:{
+							name: "激光熔覆涂层"
 						},
 					}
 				]
