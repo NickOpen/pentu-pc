@@ -80,19 +80,19 @@ export const PLATING_TYPES = {
 
 export const POWDER_RATE_UNITS = {
   R_MIN:{
-    key: "r_min",
+    key: "R_MIN",
     title: "r/min"
   },
   G_MIN:{
-    key: "g_min",
+    key: "G_MIN",
     title: "g/min"
   },
   KG_MIN:{
-    key: "kg_min",
+    key: "KG_MIN",
     title: "kg/min"
   },
   KG_H: {
-    key: "kg_h",
+    key: "KG_H",
     title: "kg/h"
   }
 }

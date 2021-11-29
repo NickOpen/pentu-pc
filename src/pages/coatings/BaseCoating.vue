@@ -14,7 +14,7 @@
 				v-bind:key="column.prop">
         <template slot-scope="scope">
           <div v-if="column.formatter">
-            {{column.formatter(scope.row, column.props)}}
+            {{column.formatter(scope.row, column.prop)}}
           </div>
           <div v-else>
             {{scope.row[column.prop]}}
@@ -36,6 +36,7 @@
 
 			<el-table-column
 				width="146"
+				fixed="right"
 				label="操作">
 				<template slot-scope="scope">
 					<div>
@@ -192,8 +193,8 @@ export default {
 	},
 	mounted(){
 		this.listCoatings({type: this.type.key, page: 1});
-		this.getAllWorkingGasTypes();
-		this.getAllCoatingDevices();
+		//this.getAllWorkingGasTypes();
+		//this.getAllCoatingDevices();
 	}
 }
 </script>

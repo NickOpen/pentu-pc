@@ -1,6 +1,7 @@
 import {mapActions, mapState} from 'vuex';
 import {isNumberVailatorForFormInput} from '../utiles/index';
 import {POWDER_RATE_UNITS, PLATING_TYPES} from '../config/sysConstants';
+import {Notification} from 'element-ui';
 
 let emptyCoating = {
 	name: "",
@@ -64,7 +65,7 @@ export default {
 					formatter: function(row, col){
 						let value = row[col];
 						if(value){
-							return `${value} ` + POWDER_RATE_UNITS[row.powderRateUnit]; 
+							return `${value} ` + POWDER_RATE_UNITS[row.powderRateUnit].title; 
 						}
 					}
 				}
@@ -195,14 +196,22 @@ export default {
 					this.editCoatingForm.form.type = type;
 
 					if(this.editCoatingForm.form.id){
-						this.updateCoating(this.editCoatingForm.form).then(resp => {
-							if(resp && resp.id){
-								this.resetEditCoatingForm();
-							}
+						this.updateCoating(this.editCoatingForm.form).then(() => {
+							Notification({
+								title: '成功',
+								message: '修改成功',
+								type: 'success'
+							});
+							this.resetEditCoatingForm();
 						})
 					}else{
 						this.addCoating(this.editCoatingForm.form).then(resp => {
 							if(resp && resp.id){
+								Notification({
+									title: '成功',
+									message: '新增成功',
+									type: 'success'
+								});
 								this.resetEditCoatingForm();
 							}
 						})
