@@ -6,6 +6,7 @@ import {Notification} from 'element-ui';
 let emptyCoating = {
 	name: "",
 	current: null,
+	materialSpec: "",
 	outputPower: null,
 	totalFlowAmount: null,
 	workingGas: null,
@@ -30,6 +31,9 @@ export default {
 					prop: "name",
 					label: "涂层材料"
 				},{
+					prop: "materialSpec",
+					label: "材料规格"
+				},{
 					prop: "current",
 					label: "电流(A)"
 				},{
@@ -51,6 +55,8 @@ export default {
 						let value = row[col];
 						if(value){
 							return PLATING_TYPES[value].title
+						}else{
+							return '/';
 						}
 					}
 				},{
@@ -66,6 +72,8 @@ export default {
 						let value = row[col];
 						if(value){
 							return `${value} ` + POWDER_RATE_UNITS[row.powderRateUnit].title; 
+						}else{
+							return '/';
 						}
 					}
 				}
@@ -77,31 +85,18 @@ export default {
 			},
 
 			editCoatingFormRules: {
-				name: [{ required: true, message: '请填写涂层材料名称', trigger: 'blur'}],
 				current: [
-					{ required: true, message: '请填写电流', trigger: 'blur'}, 
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				],
 				outputPower: [
-					{ required: true, message: '请填写输出功率', trigger: 'blur'}, 
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				],
-				totalFlowAmount: [
-					{ required: true, message: '请填写总气流量', trigger: 'blur'}, 
-					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
-				],
-				distance: [
-					{ required: true, message: '请填写喷涂距离', trigger: 'blur'}, 
+				totalFlowAmount: [ 
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				],
 				powderRate: [
-					{ required: true, message: '请填写送粉率', trigger: 'blur'}, 
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
-				],
-				platingType: [{ required: true, message: '请选择喷涂方法', trigger: 'change'}],
-				workingGas: [{ required: true, message: '请输入工作气体', trigger: 'blur'}],
-				mixedGas: [{ required: true, message: '请填写混合气体', trigger: 'blur'}],
-				coatingDeviceType: [{ required: true, message: '请输入设备型号', trigger: 'blur'}],
+				]
 			},
 
 			featuresDrawer: false,
@@ -189,34 +184,34 @@ export default {
 
 		editCoatingFormConfirmHandler(type){
 			this.$refs.editCoatingFormRef.validate((valid) => {
-          if (!valid) {
-            return;
-					}
-					
-					this.editCoatingForm.form.type = type;
+				if (!valid) {
+					return;
+				}
 
-					if(this.editCoatingForm.form.id){
-						this.updateCoating(this.editCoatingForm.form).then(() => {
+				this.editCoatingForm.form.type = type;
+
+				if(this.editCoatingForm.form.id){
+					this.updateCoating(this.editCoatingForm.form).then(() => {
+						Notification({
+							title: '成功',
+							message: '修改成功',
+							type: 'success'
+						});
+						this.resetEditCoatingForm();
+					})
+				}else{
+					this.addCoating(this.editCoatingForm.form).then(resp => {
+						if(resp && resp.id){
 							Notification({
 								title: '成功',
-								message: '修改成功',
+								message: '新增成功',
 								type: 'success'
 							});
 							this.resetEditCoatingForm();
-						})
-					}else{
-						this.addCoating(this.editCoatingForm.form).then(resp => {
-							if(resp && resp.id){
-								Notification({
-									title: '成功',
-									message: '新增成功',
-									type: 'success'
-								});
-								this.resetEditCoatingForm();
-							}
-						})
-					}
-        });
+						}
+					})
+				}
+			});
 		},
 
 		resetEditCoatingForm(){

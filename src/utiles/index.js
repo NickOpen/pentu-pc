@@ -77,9 +77,9 @@ export const phoneNumberVaildator = function(phoneNumber){
 	}
 }
 
-export const  isNumberVailatorForFormInput = function(rule, value, callback){
+export const isNumberVailatorForFormInput = function(rule, value, callback){
   if(!value){
-    callback(new Error('请输入'));
+    callback();
   }else if(Number.isNaN(Number(value))){
     callback(new Error('请输入数字值'));
   }else{

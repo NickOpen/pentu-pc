@@ -21,25 +21,9 @@ const request = axios.create({})
 const errHandler = (error) => {
     if(error.response){
 				const data = error.response.data;
-
-        if(error.response_status === 403){
-            //notification.error({message: 'Forbidden', description: data.message})
-        }else if(error.response_status === 401){
-					//notification.error({ message:'Unauthorized', description: 'Authorization verification failed'})
-					/*
-					if(token){
-							store.dispatch('logout').then(()=>{
-									setTimeout(()=>{
-											window.location.reload()
-									},1500)
-							})
-					}
-					*/
-				}
-				
 				if(data && data.status !== 200){
 					Message({
-						message: `${data.message}`,
+						message: `${data.message || '服务器端错误'}`,
 						type: 'error'
 					});
 				}

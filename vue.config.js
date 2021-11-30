@@ -49,14 +49,14 @@ module.exports = {
 		hot: true,
 		proxy: {
 			'/pentu/api': {
-					target: 'http://localhost:8001',
+					target: 'http://localhost:8088',
 					//target: 'https://wwww.pentu.nickshi.com:8001',
 					ws: false, //是否代理 websocket
 					changeOrigin: true,
 					secure: false,
 			},
 			'/pentu/login': {
-					target: 'http://localhost:8001',
+					target: 'http://localhost:8088',
 					//target: 'https://wwww.pentu.nickshi.com:8001',
 					ws: false, //是否代理 websocket
 					changeOrigin: true,

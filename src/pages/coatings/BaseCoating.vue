@@ -16,9 +16,10 @@
           <div v-if="column.formatter">
             {{column.formatter(scope.row, column.prop)}}
           </div>
-          <div v-else>
+          <div v-else-if="scope.row[column.prop]">
             {{scope.row[column.prop]}}
           </div>
+					<div v-else>/</div>
         </template>
 			</el-table-column>
 			<el-table-column
@@ -45,14 +46,16 @@
 						type="primary"
 						class="coating-edit-btn"
 						@click="handleEditCoating(scope.row)">编辑</el-button>
+
 						<el-popconfirm
 							title="确认删除 ？"
+							@confirm="handleDeleteCoating(scope.row)"
 						>
 							<el-button
 								slot="reference"
 								size="mini"
 								type="danger"
-								@click="handleDeleteCoating(scope.row)">删除</el-button>
+								>删除</el-button>
 						</el-popconfirm>
 					</div>
 				</template>
@@ -97,6 +100,9 @@
 				<el-form-item label="涂层材料" label-width="120px" prop="name">
 					<el-input v-model.trim="editCoatingForm.form.name"></el-input>
 				</el-form-item>
+				<el-form-item label="材料规格" label-width="120px" prop="materialSpec">
+					<el-input v-model.trim="editCoatingForm.form.materialSpec"></el-input>
+				</el-form-item>
 				<el-form-item label="电流" label-width="120px" prop="current">
 					<el-input v-model.number="editCoatingForm.form.current">
 						<template slot="append">A</template>
@@ -133,7 +139,7 @@
 				</el-form-item>
 
 				<el-form-item label="喷涂距离" label-width="120px" prop="distance">
-					<el-input v-model.number="editCoatingForm.form.distance">
+					<el-input v-model.trim="editCoatingForm.form.distance">
 						<template slot="append">mm</template>
 					</el-input>
 				</el-form-item>
@@ -149,10 +155,10 @@
           </el-col>
 				</el-form-item>
 				<el-form-item label="性能特点" label-width="120px">
-					<el-input type="textarea" :rows="2" v-model.trim="editCoatingForm.form.features"></el-input>
+					<el-input type="textarea" :rows="5" v-model.trim="editCoatingForm.form.features"></el-input>
 				</el-form-item>
 				<el-form-item label="文献或出处" label-width="120px">
-					<el-input type="textarea" :rows="2" v-model.trim="editCoatingForm.form.docReferences"></el-input>
+					<el-input type="textarea" :rows="5" v-model.trim="editCoatingForm.form.docReferences"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">

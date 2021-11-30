@@ -38,16 +38,20 @@ store.commonActionHandler = async ({commit, mutation, service, payload}) => {
 			}
 			return response.data;
 		}else{
-			Message({
-				message: response.message
-			});
-
+			if(response.message){
+				Message({
+					message: response.message
+				});
+			}
+			
 			return Promise.reject(new Error(response));
 		}
 	}catch(err){
+		/*
 		Message({
 			message: JSON.stringify(err)
 		});
+		*/
 		return Promise.reject(new Error());
 	}
 }

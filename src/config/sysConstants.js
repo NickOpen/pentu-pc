@@ -94,5 +94,9 @@ export const POWDER_RATE_UNITS = {
   KG_H: {
     key: "KG_H",
     title: "kg/h"
+  },
+  PA:{
+    key: "PA",
+    title: "Pa"
   }
 }
