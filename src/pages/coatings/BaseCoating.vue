@@ -92,7 +92,6 @@
 			</div>
 		</el-drawer>
 
-
 		<el-dialog title="编辑涂层类型" :visible.sync="editCoatingForm.dialogFormVisible" width="48%">
 			<el-form :model="editCoatingForm.form" 
 				:hide-required-asterisk="true"
@@ -103,16 +102,23 @@
 				<el-form-item label="材料规格" label-width="120px" prop="materialSpec">
 					<el-input v-model.trim="editCoatingForm.form.materialSpec"></el-input>
 				</el-form-item>
-				<el-form-item label="电流" label-width="120px" prop="current">
-					<el-input v-model.number="editCoatingForm.form.current">
-						<template slot="append">A</template>
-					</el-input>
+				<el-form-item label="喷涂方法" label-width="120px" prop="platingType">
+					<el-select v-model="editCoatingForm.form.platingType" placeholder="请选择">
+						<el-option v-for="platingType in allPlatingTypes" :key="platingType.key" 
+              :label="platingType.title" :value="platingType.key"></el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="输出功率" label-width="120px" prop="outputPower">
 					<el-input v-model.number="editCoatingForm.form.outputPower">
 						<template slot="append">kW</template>
 					</el-input>
 				</el-form-item>
+				<el-form-item label="电流" label-width="120px" prop="current">
+					<el-input v-model.number="editCoatingForm.form.current">
+						<template slot="append">A</template>
+					</el-input>
+				</el-form-item>
+
 				<el-form-item label="总气流量" label-width="120px" prop="totalFlowAmount">
 					<el-input v-model.number="editCoatingForm.form.totalFlowAmount">
 						<template slot="append">SLPM</template>
@@ -127,23 +133,11 @@
 					<el-input v-model.number="editCoatingForm.form.mixedGas"></el-input>
 				</el-form-item>
 
-        <el-form-item label="喷涂方法" label-width="120px" prop="platingType">
-					<el-select v-model="editCoatingForm.form.platingType" placeholder="请选择">
-						<el-option v-for="platingType in allPlatingTypes" :key="platingType.key" 
-              :label="platingType.title" :value="platingType.key"></el-option>
-					</el-select>
-				</el-form-item>
-
-				<el-form-item label="设备型号" label-width="120px" prop="coatingDeviceType">
-          <el-input v-model.number="editCoatingForm.form.coatingDeviceType"></el-input>
-				</el-form-item>
-
 				<el-form-item label="喷涂距离" label-width="120px" prop="distance">
 					<el-input v-model.trim="editCoatingForm.form.distance">
 						<template slot="append">mm</template>
 					</el-input>
 				</el-form-item>
-
 				<el-form-item label="送粉率" label-width="120px" prop="powderRate">
           <el-col :span="19">
             <el-input v-model.number="editCoatingForm.form.powderRate" class="powder-rate-input"></el-input>
@@ -153,6 +147,9 @@
               <el-option v-for="rate in allPowderRateUnits" :key="rate.key" :label="rate.title" :value="rate.key"></el-option>
             </el-select>
           </el-col>
+				</el-form-item>
+				<el-form-item label="设备型号" label-width="120px" prop="coatingDeviceType">
+          <el-input v-model.number="editCoatingForm.form.coatingDeviceType"></el-input>
 				</el-form-item>
 				<el-form-item label="性能特点" label-width="120px">
 					<el-input type="textarea" :rows="5" v-model.trim="editCoatingForm.form.features"></el-input>

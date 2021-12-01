@@ -34,21 +34,6 @@ export default {
 					prop: "materialSpec",
 					label: "材料规格"
 				},{
-					prop: "current",
-					label: "电流(A)"
-				},{
-					prop: "outputPower",
-					label: "输出功率"
-				},{
-					prop: "totalFlowAmount",
-					label: "总气流量(SLPM)"
-				},{
-					prop: "workingGas",
-					label: "工作气体"
-				},{
-					prop: "mixedGas",
-					label: "混合气体"
-				},{
 					prop: "platingType",
 					label: "喷涂方法",
 					formatter: function(row, col){
@@ -60,8 +45,20 @@ export default {
 						}
 					}
 				},{
-					prop: "coatingDeviceType",
-					label: "设备型号"
+					prop: "outputPower",
+					label: "输出功率"
+				},{
+					prop: "current",
+					label: "电流(A)"
+				},{
+					prop: "totalFlowAmount",
+					label: "总气流量(SLPM)"
+				},{
+					prop: "workingGas",
+					label: "工作气体"
+				},{
+					prop: "mixedGas",
+					label: "混合气体"
 				},{
 					prop: "distance",
 					label: "喷涂距离(mm)"
@@ -76,7 +73,10 @@ export default {
 							return '/';
 						}
 					}
-				}
+				},{
+					prop: "coatingDeviceType",
+					label: "设备型号"
+				},
 			],
 
 			editCoatingForm: {
