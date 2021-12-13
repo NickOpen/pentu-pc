@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import {COATING_TYPES} from '../config/sysConstants';
 
 import UserLayout from '@components/layout/UserLayout';
 import MainLayout from '@components/layout/MainLayout';
@@ -72,19 +73,22 @@ const routes = [
 						path: "coatings_vacuum",
 						component: VacuumCoatingPage,
 						meta:{
-							name: "真空冷喷涂涂层"
+							name: "真空冷喷涂涂层",
+							key: COATING_TYPES.VACUUM.key
 						},
 					},{
 						path: "coatings_air_cold",
 						component: AirColdCoatingPage,
 						meta:{
-							name: "大气冷喷涂涂层"
+							name: "大气冷喷涂涂层",
+							key: COATING_TYPES.AIR_COLD.key
 						},
 					},{
 						path: "coatings_aurora",
 						component: AuroraCoatingPage,
 						meta:{
-							name: "激光熔覆涂层"
+							name: "激光熔覆涂层",
+							key: COATING_TYPES.AURORA.key
 						},
 					}
 				]

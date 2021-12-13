@@ -1,6 +1,6 @@
 import {mapActions, mapState} from 'vuex';
 import {isNumberVailatorForFormInput} from '../utiles/index';
-import {POWDER_RATE_UNITS, PLATING_TYPES} from '../config/sysConstants';
+import {POWDER_RATE_UNITS, PLATING_TYPES, COATING_TYPES} from '../config/sysConstants';
 import {Notification} from 'element-ui';
 
 let emptyCoating = {
@@ -17,7 +17,8 @@ let emptyCoating = {
 	powderRate: null,
 	powderRateUnit: POWDER_RATE_UNITS.R_MIN.key,
 	features: "",
-	docReferences: ""
+	docReferences: "",
+	vacuumPressure: null
 };
 
 export default {
@@ -79,6 +80,8 @@ export default {
 				},
 			],
 
+			subMenuTypeKey: "",
+
 			editCoatingForm: {
 				dialogFormVisible: false,
 				form: {...emptyCoating}
@@ -95,6 +98,9 @@ export default {
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				],
 				powderRate: [
+					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
+				],
+				vacuumPressure: [
 					{ validator: isNumberVailatorForFormInput, trigger: 'blur'}
 				]
 			},
@@ -120,6 +126,55 @@ export default {
 			},
 			set: function(){
 				//TODO.
+			}
+		},
+		calcColumns: function(){
+			if(!this.subMenuTypeKey){
+				return this.columns;
+			}else{
+				switch(this.subMenuTypeKey){
+					case COATING_TYPES.VACUUM.key: {
+						return this.columns.reduce((prevBuffer, currentNode) => {
+							let newObjNode = Object.assign({}, currentNode);
+							if(newObjNode.prop === 'mixedGas'){
+								newObjNode.label = "真空室压力（Pa）";
+								newObjNode.prop = 'vacuumPressure';
+							}
+
+							if(newObjNode.prop !== 'outputPower' && newObjNode.prop !== 'current'){
+								prevBuffer.push(newObjNode);
+								return prevBuffer;
+							}else{
+								return prevBuffer;
+							}
+						}, []);
+					}
+					case COATING_TYPES.AIR_COLD.key: {
+						return this.columns.reduce((prevBuffer, currentNode) => {
+							let newObjNode = Object.assign({}, currentNode);
+							if(newObjNode.prop !== 'outputPower' && newObjNode.prop !== 'current'){
+								prevBuffer.push(newObjNode);
+								return prevBuffer;
+							}else{
+								return prevBuffer;
+							}
+						}, []);
+					}
+					case COATING_TYPES.AURORA.key: {
+						return this.columns.reduce((prevBuffer, currentNode) => {
+							let newObjNode = Object.assign({}, currentNode);
+							if(newObjNode.prop !== 'outputPower' && newObjNode.prop !== 'current'){
+								prevBuffer.push(newObjNode);
+								return prevBuffer;
+							}else{
+								return prevBuffer;
+							}
+						}, []);
+					}
+					default: {
+						return this.columns;
+					}
+				}
 			}
 		}
 	},
@@ -219,5 +274,14 @@ export default {
 			this.editCoatingForm.dialogFormVisible = false;
 			this.editCoatingForm.form = {...emptyCoating}
 		}
-  }
+  },
+
+	mounted(){
+		const {key} = this.$route.meta;
+		if(key){
+			this.subMenuTypeKey = key;
+		}else{
+			this.subMenuTypeKey = "";
+		}
+	}
 }

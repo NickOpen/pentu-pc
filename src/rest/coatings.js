@@ -1,7 +1,7 @@
 import request from '../utiles/request';
 
-export function getPageCoatings({page, size, type, name}){
-	return request.get('/coatings', {page, size, type, name});
+export function getPageCoatings({page, size, type, name, platingType}){
+	return request.get('/coatings', {page, size, type, name, platingType});
 }
 
 export function get(id){

@@ -14,13 +14,43 @@ export default {
 .coatings-pg{
 	.pg-header{
 		width: 100%;
-		text-align: right;
+
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.fitler{
+			display: flex;
+
+			.filter_item{
+				width: 220px;
+			}
+
+			.filter_plating-types{
+				margin-left: 20px;
+			}
+
+			.filter-btn{
+				border: 1px solid #2D60D0;
+				color: #2D60D0;
+				background-color: white;
+				margin-left: 20px;
+				
+				:hover{
+					opacity: 0.7;
+				}
+			}
+		}
 	}
 	.coating-add-btn{
 		width: 100px;
 		background-color: #2D60D0;
 		border: 1px solid #2D60D0;
 		margin-bottom: 8px;
+
+		:hover{
+			opacity: 0.7;
+		}
 	}
 
 	.drawer-features-content,

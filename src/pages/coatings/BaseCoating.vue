@@ -1,6 +1,16 @@
 <template>
 	<div class="sub-pg coatings-pg">
 		<div class="pg-header">
+			<div class="fitler">
+				<el-input class="filter_item filter_name" placeholder="请输入涂层材料关键字..." size="medium" v-model="searchKeys.name" ></el-input>
+				<el-select class="filter_item filter_plating-types" v-model="searchKeys.platingType" clearable placeholder="请选择" size="medium">
+					<el-option v-for="platingType in allPlatingTypes" :key="platingType.key" 
+						:label="platingType.title" :value="platingType.key">
+					</el-option>
+				</el-select>
+				<el-button size="small" plain type="primary" class="filter-btn" @click="filterClickHandler">搜索</el-button>
+			</div>
+			
 			<el-button size="small" type="primary" class="coating-add-btn" @click="addCoatingClickHandler">新增</el-button>
 		</div>
 		
@@ -8,7 +18,7 @@
 			class="coating-table"
 			:data="list">
 			<el-table-column
-				v-for="column in columns"
+				v-for="column in calcColumns"
 				:prop="column.prop"
 				:label="column.label"
 				v-bind:key="column.prop">
@@ -102,37 +112,41 @@
 				<el-form-item label="材料规格" label-width="120px" prop="materialSpec">
 					<el-input v-model.trim="editCoatingForm.form.materialSpec"></el-input>
 				</el-form-item>
-				<el-form-item label="喷涂方法" label-width="120px" prop="platingType">
+				<el-form-item  label="喷涂方法" label-width="120px" prop="platingType">
 					<el-select v-model="editCoatingForm.form.platingType" placeholder="请选择">
 						<el-option v-for="platingType in allPlatingTypes" :key="platingType.key" 
               :label="platingType.title" :value="platingType.key"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="输出功率" label-width="120px" prop="outputPower">
-					<el-input v-model.number="editCoatingForm.form.outputPower">
+				<el-form-item v-if="isShowOutputPower" label="输出功率" label-width="120px" prop="outputPower">
+					<el-input v-model.number="editCoatingForm.form.outputPower" type="number">
 						<template slot="append">kW</template>
 					</el-input>
 				</el-form-item>
-				<el-form-item label="电流" label-width="120px" prop="current">
-					<el-input v-model.number="editCoatingForm.form.current">
+				<el-form-item v-if="isShowCurrent" label="电流" label-width="120px" prop="current">
+					<el-input v-model.number="editCoatingForm.form.current" type="number">
 						<template slot="append">A</template>
 					</el-input>
 				</el-form-item>
 
 				<el-form-item label="总气流量" label-width="120px" prop="totalFlowAmount">
-					<el-input v-model.number="editCoatingForm.form.totalFlowAmount">
+					<el-input v-model.number="editCoatingForm.form.totalFlowAmount" type="number">
 						<template slot="append">SLPM</template>
 					</el-input>
 				</el-form-item>
 
 				<el-form-item label="工作气体" label-width="120px" prop="workingGas">
-          <el-input v-model.number="editCoatingForm.form.workingGas"></el-input>
+          <el-input v-model="editCoatingForm.form.workingGas"></el-input>
 				</el-form-item>
 
-				<el-form-item label="混合气体" label-width="120px" prop="mixedGas">
-					<el-input v-model.number="editCoatingForm.form.mixedGas"></el-input>
+				<el-form-item v-if="type.key === coatingTypes.VACUUM.key" label="真空室压力" label-width="120px" prop="vacuumPressure">
+					<el-input v-model="editCoatingForm.form.vacuumPressure"><template slot="append">Pa</template></el-input>
 				</el-form-item>
-
+				<el-form-item v-else label="混合气体" label-width="120px" prop="mixedGas">
+					<el-input v-model="editCoatingForm.form.mixedGas">
+					</el-input>
+				</el-form-item>
+				
 				<el-form-item label="喷涂距离" label-width="120px" prop="distance">
 					<el-input v-model.trim="editCoatingForm.form.distance">
 						<template slot="append">mm</template>
@@ -140,7 +154,7 @@
 				</el-form-item>
 				<el-form-item label="送粉率" label-width="120px" prop="powderRate">
           <el-col :span="19">
-            <el-input v-model.number="editCoatingForm.form.powderRate" class="powder-rate-input"></el-input>
+            <el-input v-model.number="editCoatingForm.form.powderRate" class="powder-rate-input" type="number"></el-input>
           </el-col>
           <el-col :span="5">
             <el-select v-model="editCoatingForm.form.powderRateUnit" class="powder-rate-unit-select">
@@ -149,7 +163,7 @@
           </el-col>
 				</el-form-item>
 				<el-form-item label="设备型号" label-width="120px" prop="coatingDeviceType">
-          <el-input v-model.number="editCoatingForm.form.coatingDeviceType"></el-input>
+          <el-input v-model="editCoatingForm.form.coatingDeviceType"></el-input>
 				</el-form-item>
 				<el-form-item label="性能特点" label-width="120px">
 					<el-input type="textarea" :rows="5" v-model.trim="editCoatingForm.form.features"></el-input>
@@ -179,10 +193,41 @@ export default {
       default: COATING_TYPES.METAL,
     }
   },
+	computed: {
+		isShowCurrent: function(){
+			const {key} = this.type;
+			if( key === COATING_TYPES.VACUUM.key
+				|| key === COATING_TYPES.AIR_COLD.key
+				|| key === COATING_TYPES.AURORA.key){
+					return false;
+			}
+
+			return true;
+		},
+		isShowOutputPower: function(){
+			const {key} = this.type;
+			if( key === COATING_TYPES.VACUUM.key
+				|| key === COATING_TYPES.AIR_COLD.key
+				|| key === COATING_TYPES.AURORA.key){
+					return false;
+			}
+
+			return true;
+		}
+	},
   data(){
     return {
       allPlatingTypes: PLATING_TYPES,
-      allPowderRateUnits: POWDER_RATE_UNITS
+      allPowderRateUnits: POWDER_RATE_UNITS,
+			coatingTypes: COATING_TYPES,
+
+			/**
+			 * 搜索关键字
+			 */
+			searchKeys: {
+				name: null,
+				platingType: null
+			}
     }
   },
 	methods: {
@@ -191,8 +236,12 @@ export default {
 		},
 
 		getPageData(page){
-			this.listCoatings({type: this.type.key, page});
+			this.listCoatings({type: this.type.key, page, name: this.searchKeys.name, platingType: this.searchKeys.platingType});
 		},
+
+		filterClickHandler(){
+			this.listCoatings({type: this.type.key, page: 1, name: this.searchKeys.name, platingType: this.searchKeys.platingType})
+		}
 	},
 	mounted(){
 		this.listCoatings({type: this.type.key, page: 1});

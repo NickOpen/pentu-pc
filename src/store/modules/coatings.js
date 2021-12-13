@@ -8,6 +8,10 @@ export default {
 		page: 1,
 		size: 0,
 		list: [],
+		filter: {
+			name: null,
+			platingType: null
+		},
 		current: null
 	},
 	mutations: {
@@ -23,20 +27,23 @@ export default {
 		},
 		setCurrentCoatingType(state, type){
 			state.type = type;
+		},
+		setFilters(state, filters){
+			state.filter = {...filters}
 		}
 	},
 	actions: {
-		async listCoatings({commit}, {type, name, page, size = PAGE_SIZE_COUNT}){
+		async listCoatings({commit, state}, {type, name, platingType, page, size = PAGE_SIZE_COUNT}){
 			let ret = await this.commonActionHandler({
 				commit,
 				mutation: 'setPagingCoatingData',
 				service: coatingRestAdapter.getPageCoatings,
-				payload: {type, name, page: page - 1, size}
+				payload: {type, page: page - 1, size, ...state.filter, name, platingType}
 			});
 
 			commit('setCurrentCoatingType', type);
 			commit('setCoatingCurrentPage', page);
-
+			commit('setFilters', {name, platingType});
 			return ret;
 		},
 
@@ -57,7 +64,8 @@ export default {
 				payload: payload
 			});
 
-			this.dispatch('listCoatings', {page: state.page, type: payload.type});
+			this.dispatch('listCoatings', {
+				page: state.page, type: payload.type, name: state.filter.name, platingType: state.filter.platingType});
 
 			return ret;
 		},
@@ -68,7 +76,7 @@ export default {
 				payload: payload
 			});
 
-			this.dispatch('listCoatings', {page: state.page, type: payload.type});
+			this.dispatch('listCoatings', {page: state.page, type: payload.type, name: state.filter.name, platingType: state.filter.platingType});
 
 			return ret;
 		},
@@ -76,7 +84,7 @@ export default {
 		async deleteCoating({state}, id){
 			let resp = await coatingRestAdapter.del(id);
 			if(resp.status === 0){
-				this.dispatch('listCoatings', {page: state.page, type: state.type});
+				this.dispatch('listCoatings', {page: state.page, type: state.type, name: state.filter.name, platingType: state.filter.platingType});
 			}
 		}
 	}
