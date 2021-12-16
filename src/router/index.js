@@ -14,6 +14,7 @@ import ElectrolyteCoatingPage from '@pages/coatings/CoatingsElectrolyte.vue';
 import VacuumCoatingPage from '@pages/coatings/CoatingsVacuum.vue';
 import AuroraCoatingPage from '@pages/coatings/CoatingsAurora.vue';
 import AirColdCoatingPage from '@pages/coatings/CoatingAirCold.vue';
+import SofcSinterCoatingPage from '@pages/coatings/CoatingsSofc.vue';
 
 import CoatingMethodsPage from '@pages/CoatingMethods.vue'
 import PerformanceTestPage from '@pages/PerformanceTest.vue';
@@ -67,7 +68,7 @@ const routes = [
 						path: "coatings_electrolyte",
 						component: ElectrolyteCoatingPage,
 						meta:{
-							name: "电解质涂层"
+							name: "SOFC 涂层"
 						},
 					},{
 						path: "coatings_vacuum",
@@ -89,6 +90,13 @@ const routes = [
 						meta:{
 							name: "激光熔覆涂层",
 							key: COATING_TYPES.AURORA.key
+						},
+					},{
+						path: "coatings_sofc_sinter",
+						component: SofcSinterCoatingPage,
+						meta:{
+							name: "SOFC 烧结涂层",
+							key: COATING_TYPES.SOFC_SINTER.key
 						},
 					}
 				]

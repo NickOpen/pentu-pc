@@ -27,7 +27,7 @@ export const COATING_TYPES = {
   }, 
   ELECTROLYTE : {
     key: "ELECTROLYTE",
-    title: "电解质涂层"
+    title: "SOFC 涂层"
   },
   VACUUM: {
     key: "VACUUM",
@@ -40,6 +40,10 @@ export const COATING_TYPES = {
   AURORA: {
     key: "AURORA",
     title: "激光熔覆涂层"
+  },
+  SOFC_SINTER: {
+    key: "SOFC_SINTER",
+    title: "SOFC 烧结涂层"
   }
 }
 
@@ -78,6 +82,17 @@ export const PLATING_TYPES = {
   }
 }
 
+export const SOFC_SPEED_UNITS = {
+  CM_S: {
+    key: "CM_S",
+    title: "cm/s"
+  },
+  MM_S: {
+    key: "MM_S",
+    title: "mm/s"
+  }
+}
+
 export const POWDER_RATE_UNITS = {
   R_MIN:{
     key: "R_MIN",
@@ -98,5 +113,31 @@ export const POWDER_RATE_UNITS = {
   PA:{
     key: "PA",
     title: "Pa"
+  }
+}
+
+export const PRESSURE_UNITS = {
+  KPA: {
+    key: "KPA",
+    title: "KPa"
+  },
+  PA: {
+    key: "PA",
+    title: "Pa"
+  },
+  ATM: {
+    key: "ATM",
+    title: "atm"
+  }
+}
+
+export const SOFC_COATING_CREATE_TYPES = {
+  LIU_YAN: {
+    key: "LIU_YAN",
+    title: "流延"
+  },
+  SI_WANG: {
+    key: 'SI_WANG',
+    title: '丝网印刷'
   }
 }
