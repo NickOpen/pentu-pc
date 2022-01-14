@@ -56,47 +56,78 @@ const routes = [
 						path: "coatings_metal",
 						component: MetalCoatingPage,
 						meta:{
-							name: "金属涂层"
+							name: "金属涂层",
+							users: [
+								'刘康诚',
+								'张惠宇',
+								'邓世杰',
+								'刘森辉'
+							]
 						},
 					},{
 						path: "coatings_ceramic",
 						component: CeramicCoatingPage,
 						meta:{
-							name: "陶瓷涂层"
+							name: "陶瓷涂层",
+							users: [
+								'邓世杰',
+								'刘森辉'
+							]
 						},
 					},{
 						path: "coatings_electrolyte",
 						component: ElectrolyteCoatingPage,
 						meta:{
-							name: "SOFC 涂层"
+							name: "SOFC 涂层",
+							users: [
+								'粱彦能',
+								'富涛',
+								'李甲鸿'
+							]
 						},
 					},{
 						path: "coatings_vacuum",
 						component: VacuumCoatingPage,
 						meta:{
 							name: "真空冷喷涂涂层",
-							key: COATING_TYPES.VACUUM.key
+							key: COATING_TYPES.VACUUM.key,
+							users: [
+								'田飞'
+							]
 						},
 					},{
 						path: "coatings_air_cold",
 						component: AirColdCoatingPage,
 						meta:{
 							name: "大气冷喷涂涂层",
-							key: COATING_TYPES.AIR_COLD.key
+							key: COATING_TYPES.AIR_COLD.key,
+							users: [
+								'纪纲',
+								'刘森辉'
+							]
 						},
 					},{
 						path: "coatings_aurora",
 						component: AuroraCoatingPage,
 						meta:{
 							name: "激光熔覆涂层",
-							key: COATING_TYPES.AURORA.key
+							key: COATING_TYPES.AURORA.key,
+							users: [
+								'刘康诚',
+								'刘伊',
+								'刘森辉'
+							]
 						},
 					},{
 						path: "coatings_sofc_sinter",
 						component: SofcSinterCoatingPage,
 						meta:{
 							name: "SOFC 烧结涂层",
-							key: COATING_TYPES.SOFC_SINTER.key
+							key: COATING_TYPES.SOFC_SINTER.key,
+							users: [
+								'富涛',
+								'李甲鸿'
+							]
 						},
 					}
 				]

@@ -58,6 +58,10 @@
 				<el-breadcrumb separator="/">
 					<el-breadcrumb-item v-for="item in breadcrumbs" :key="item">{{item}}</el-breadcrumb-item>
 				</el-breadcrumb>
+				<span class="editors" v-if="currentEditors.length">
+					<span class="editor-title">内容编辑:</span>
+					<span v-for="user in currentEditors" :key="user" class="editor-node">{{user}}</span>
+				</span>
 			</div>
 
 			<div class="main-content">
@@ -75,13 +79,14 @@
 
 <script>
 import {COATING_TYPES} from '../../config/sysConstants';
+import router from '../../router/index';
 
 export default {
 	name: "MainLayout",
 	data(){
 		return {
 			breadcrumbs: [],
-
+			currentEditors: [],
 			coatingTypes: Object.keys(COATING_TYPES).map(key => COATING_TYPES[key])
 		}
 	},
@@ -105,15 +110,32 @@ export default {
 
 	beforeRouteEnter(to, from, next){
 		let breadcrumbs = [];
+		let currentEditors = [];
 		to.matched.forEach(node => {
 			if(node.meta && node.meta.name){
 				breadcrumbs.push(node.meta.name);
+			}
+
+			if(node.meta && node.meta.users && node.meta.users.length > 0){
+				currentEditors = [...node.meta.users]
 			}
 		});
 
 		next(vm => {
 			vm.breadcrumbs = breadcrumbs;
+			vm.currentEditors = currentEditors;
 		});
+	},
+
+	created(){
+		router.afterEach((to) => {
+			console.log(to);
+			if(to.meta && to.meta.users) {
+				this.currentEditors = [...to.meta.users]
+			}else{
+				this.currentEditors = [];
+			}
+		})
 	}
 }
 </script>
@@ -168,6 +190,10 @@ export default {
 		padding: 0px;
 
 		.main-breadcrumb{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
 			margin: 20px 20px 0px 20px;
 			padding: 14px 20px;
 			background-color: white;
@@ -206,6 +232,20 @@ export default {
 
 	.el-menu-item-group .el-menu-item{
 		padding-left: 50px !important;
+	}
+
+	.editors{
+		font-size: 14px;
+
+		.editor-title{
+
+		}
+		.editor-node{
+			padding-left: 14px;
+			font-weight: 400;
+			color: #606266;
+			cursor: text;
+		}
 	}
 }
 </style>
