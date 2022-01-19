@@ -14,7 +14,7 @@ import ElectrolyteCoatingPage from '@pages/coatings/CoatingsElectrolyte.vue';
 import VacuumCoatingPage from '@pages/coatings/CoatingsVacuum.vue';
 import AuroraCoatingPage from '@pages/coatings/CoatingsAurora.vue';
 import AirColdCoatingPage from '@pages/coatings/CoatingAirCold.vue';
-import SofcSinterCoatingPage from '@pages/coatings/CoatingsSofc.vue';
+//import SofcSinterCoatingPage from '@pages/coatings/CoatingsSofc.vue';
 
 import CoatingMethodsPage from '@pages/CoatingMethods.vue'
 import PerformanceTestPage from '@pages/PerformanceTest.vue';
@@ -80,9 +80,7 @@ const routes = [
 						meta:{
 							name: "SOFC 涂层",
 							users: [
-								'粱彦能',
-								'富涛',
-								'李甲鸿'
+								'粱彦能'
 							]
 						},
 					},{
@@ -118,7 +116,7 @@ const routes = [
 								'刘森辉'
 							]
 						},
-					},{
+					}/*{
 						path: "coatings_sofc_sinter",
 						component: SofcSinterCoatingPage,
 						meta:{
@@ -129,7 +127,7 @@ const routes = [
 								'李甲鸿'
 							]
 						},
-					}
+					}*/
 				]
 			},{
 				path: 'coating_methods',

@@ -40,11 +40,11 @@ export const COATING_TYPES = {
   AURORA: {
     key: "AURORA",
     title: "激光熔覆涂层"
-  },
+  }/*,
   SOFC_SINTER: {
     key: "SOFC_SINTER",
     title: "SOFC 烧结涂层"
-  }
+  }*/
 }
 
 export const PLATING_TYPES = {
